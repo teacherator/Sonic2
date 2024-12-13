@@ -19,16 +19,17 @@ void interrupt_function(){
    else if(digitalRead(echo)==LOW){
        Serial.println("the voltage is low, it's decreasing");
        t2=micros();
-       Serial.println("distance"+ String(343*(t2-t1)/2*pow(10,-4))+" cm"); // 343 is speed of sound in m/s
+       Serial.println("distance "+ String(0.0343*(t2-t1)/2.0)+" cm"); // 343 is speed of sound in m/s
    }
 // print if it is rising, otherwise print it's falling
 
-   Serial.println("Hello Im an interrupt");
+   //Serial.println("Hello Im an interrupt");
 }
 
 void setup(){
 //set up serial and pins
 Serial.begin(9600);
+//Serial.println("Hello Im setup");
 pinMode(trig,OUTPUT);
 pinMode(echo,INPUT);
 
@@ -42,7 +43,8 @@ attachInterrupt(digitalPinToInterrupt(echo),interrupt_function,CHANGE);
 
 void loop(){
 
-if(millis()-t0>500){ // If 0.5 second has passed
+if(millis()-t0>1000){ // If 0.5 second has passed
+   //Serial.println("Hello I'm past 500ms");
    digitalWrite(trig,HIGH);
    // delay(0.01);
    delayMicroseconds(10);
